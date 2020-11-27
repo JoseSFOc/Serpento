@@ -4,35 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/black_background"
         android:scaleType="centerCrop"
-        />
+        android:src="@drawable/green_background" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="64sp"
+        android:layout_above="@+id/playBtn"
+        android:layout_centerHorizontal="true"
         android:text="SERPENTO"
         android:textColor="#fff"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50sp"
-        />
+        android:textSize="64sp" />
 
     <TextView
+        android:id="@+id/playBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
-        android:textSize="48sp"
         android:layout_centerInParent="true"
-        android:textColor="#33FFA8"
-        android:id="@+id/play"
-        />
+        android:onClick="playHandler"
+        android:text="Play"
+        android:textColor="#fff"
+        android:textSize="48sp" />
 
+    <ImageView
+        android:id="@+id/settingsBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20sp"
+        android:src="@drawable/ic_baseline_settings_24" />
 
 
 </RelativeLayout>
