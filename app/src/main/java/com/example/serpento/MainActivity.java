@@ -32,4 +32,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(gbIntent);
     }
 
+    public void settingsHandler(View view) {
+        Intent gbIntent = new Intent(this, SettingsActivity.class);
+        startActivity(gbIntent);
+    }
+
+    public void scoresHandler(View view) {
+        Intent gbIntent = new Intent(this, ScoreActivity.class);
+        startActivity(gbIntent);
+    }
+
+
 }

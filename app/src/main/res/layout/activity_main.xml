@@ -4,14 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/pink"
     tools:context=".MainActivity">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/green_background" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,7 +32,16 @@
         android:layout_height="40sp"
         android:layout_alignParentRight="true"
         android:layout_margin="20sp"
+        android:onClick="settingsHandler"
         android:src="@drawable/ic_baseline_settings_24" />
 
+    <ImageView
+        android:id="@+id/scoresBtn"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_toLeftOf="@+id/settingsBtn"
+        android:layout_marginTop="20sp"
+        android:onClick="scoresHandler"
+        android:src="@drawable/trophy" />
 
 </RelativeLayout>
