@@ -1,6 +1,6 @@
 package com.example.serpento.model;
 
-//Crear un enum de direcciones
+//Crear un enum de direcciones, también se pueden crear variables rollo public static final String ARRIBA = "arriba" para poder llamarlos con SNAKE.ARRIBA
 
 import java.util.LinkedList;
 import java.util.List;
@@ -65,4 +65,5 @@ public class Snake {
     public void quitarUltimoTrozo() {
         trozosSerpiente.remove(trozosSerpiente.size()-1);
     }
+
 }
