@@ -1,5 +1,6 @@
 package com.example.serpento.model;
 
+//Crear un enum de direcciones
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,9 +16,9 @@ public class Snake {
     public Snake(int tam, int filaInicial, int columnaInicial, String direccionInicial){
         this.tam = tam;
         trozosSerpiente = new LinkedList<TrozoSerpiente>();
-        trozosSerpiente.add(new TrozoSerpiente(filaInicial,columnaInicial));
+        trozosSerpiente.add(new TrozoSerpiente(filaInicial,columnaInicial)); //crear tantos como tam
         ultimaDireccion = "derecha";
-        direccionActual = "derecha";
+        direccionActual = "derecha"; //direccionInicial
     }
 
     public void girar(String sentido){
@@ -48,6 +49,7 @@ public class Snake {
     }
 
     public void añadirTrozoDelante(String sentido){
+        //Comprobar que no se cree en un obstaculo
         switch (direccionActual){
             case "arriba":      trozosSerpiente.add(0, new TrozoSerpiente(trozosSerpiente.get(0).fila+1,trozosSerpiente.get(0).columna));
                                 break;
