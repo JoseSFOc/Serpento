@@ -15,8 +15,8 @@ public class Snake {
     int tam;
     List<Piece> trozosSerpiente;
 
-    public Snake(int filaInicial, int columnaInicial, String direccionInicial){
-        this.tam = 3;
+    public Snake(int tam, int filaInicial, int columnaInicial, String direccionInicial){
+        this.tam = tam;
         trozosSerpiente = new LinkedList<Piece>();
         trozosSerpiente.add(new Piece(filaInicial,columnaInicial));
         while(tam > trozosSerpiente.size()){
@@ -68,5 +68,37 @@ public class Snake {
 
     public void quitarUltimoTrozo() {
         trozosSerpiente.remove(trozosSerpiente.size()-1);
+    }
+
+    public String getDireccionActual() {
+        return direccionActual;
+    }
+
+    public void setDireccionActual(String direccionActual) {
+        this.direccionActual = direccionActual;
+    }
+
+    public String getUltimaDireccion() {
+        return ultimaDireccion;
+    }
+
+    public void setUltimaDireccion(String ultimaDireccion) {
+        this.ultimaDireccion = ultimaDireccion;
+    }
+
+    public int getTam() {
+        return tam;
+    }
+
+    public void setTam(int tam) {
+        this.tam = tam;
+    }
+
+    public List<Piece> getTrozosSerpiente() {
+        return trozosSerpiente;
+    }
+
+    public void setTrozosSerpiente(List<Piece> trozosSerpiente) {
+        this.trozosSerpiente = trozosSerpiente;
     }
 }
