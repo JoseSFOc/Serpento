@@ -10,7 +10,7 @@ public class Partida {
     public Partida (Mapa mapaC, int periodoAcciónRutinaria){
         this.mapa = copiarMapaC(mapaC);
         periodoAcciónRutinariaMs = periodoAcciónRutinaria;
-
+        serpiente = new Snake(3, mapaC.getFilIni(), mapaC.getColIni(), mapaC.getDirIni());
     }
 
     public void crearFruta() { //cambiar para que no salga encima de la serpiente o obstaculo

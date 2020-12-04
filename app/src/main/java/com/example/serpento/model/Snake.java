@@ -16,7 +16,7 @@ public class Snake {
     public Snake(int tam, int filaInicial, int columnaInicial, String direccionInicial){
         this.tam = tam;
         trozosSerpiente = new LinkedList<TrozoSerpiente>();
-        trozosSerpiente.add(new TrozoSerpiente(filaInicial,columnaInicial)); //crear tantos como tam
+        trozosSerpiente.add(new TrozoSerpiente(filaInicial,columnaInicial)); //crear tantos como tam. Comprobar si pueden crearse en esos puntos
         ultimaDireccion = "derecha";
         direccionActual = "derecha"; //direccionInicial
     }
