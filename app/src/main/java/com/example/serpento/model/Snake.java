@@ -49,7 +49,6 @@ public class Snake {
     }
 
     public void añadirTrozoDelante(String sentido){
-        //Comprobar que no se cree en un obstaculo
         switch (direccionActual){
             case "arriba":      trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila+1,trozosSerpiente.get(0).columna));
                                 break;
@@ -66,4 +65,35 @@ public class Snake {
         trozosSerpiente.remove(trozosSerpiente.size()-1);
     }
 
+    public String getDireccionActual() {
+        return direccionActual;
+    }
+
+    public void setDireccionActual(String direccionActual) {
+        this.direccionActual = direccionActual;
+    }
+
+    public String getUltimaDireccion() {
+        return ultimaDireccion;
+    }
+
+    public void setUltimaDireccion(String ultimaDireccion) {
+        this.ultimaDireccion = ultimaDireccion;
+    }
+
+    public int getTam() {
+        return tam;
+    }
+
+    public void setTam(int tam) {
+        this.tam = tam;
+    }
+
+    public List<Piece> getTrozosSerpiente() {
+        return trozosSerpiente;
+    }
+
+    public void setTrozosSerpiente(List<Piece> trozosSerpiente) {
+        this.trozosSerpiente = trozosSerpiente;
+    }
 }
