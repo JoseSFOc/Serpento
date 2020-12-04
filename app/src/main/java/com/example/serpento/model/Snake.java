@@ -49,7 +49,7 @@ public class Snake {
     }
 
     public void añadirTrozoDelante(String sentido){
-        switch (direccionActual){
+        switch (direccionActual){ //cambiar para punto de referencia arriba-izquierda
             case "arriba":      trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila+1,trozosSerpiente.get(0).columna));
                                 break;
             case "abajo":       trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila-1,trozosSerpiente.get(0).columna));
