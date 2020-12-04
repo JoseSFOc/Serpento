@@ -5,6 +5,11 @@ import java.util.List;
 
 public class Snake {
 
+<<<<<<< Updated upstream
+=======
+    private String hola = "hola german";
+
+>>>>>>> Stashed changes
     public static String ARRIBA = "ARRIBA";
     public static String IZQUIERDA = "IZQUIERDA";
     public static String DERECHA = "DERECHA";
