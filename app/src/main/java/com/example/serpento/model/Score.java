@@ -1,10 +1,10 @@
 package com.example.serpento.model;
 
-public class Puntuacion {
+public class Score {
     String nick;
     int puntos;
 
-    public Puntuacion(String nick, int puntos) {
+    public Score(String nick, int puntos) {
         this.nick = nick;
         this.puntos = puntos;
     }

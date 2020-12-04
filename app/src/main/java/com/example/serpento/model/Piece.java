@@ -1,10 +1,10 @@
 package com.example.serpento.model;
 
-public class TrozoSerpiente {
+public class Piece {
     int fila;
     int columna;
 
-    public TrozoSerpiente(int fila, int columna) {
+    public Piece(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
     }
