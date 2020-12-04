@@ -1,5 +1,10 @@
 package com.example.serpento.model;
 
+// 'X' = muro
+// 'S' = serpiente
+// 'F' = fruta
+// ' ' = vacío
+
 import java.util.Random;
 
 public class Game {
@@ -8,26 +13,43 @@ public class Game {
     private char[][] map;
     private Snake serpiente;
     private int periodoAcciónRutinariaMs;
-
+    private double
     public Game(Map mapC, int periodoAcciónRutinaria){
         this.map = copiarMapaC(mapC);
         periodoAcciónRutinariaMs = periodoAcciónRutinaria;
         serpiente = new Snake(3, mapaC.getFilIni(), mapaC.getColIni(), mapaC.getDirIni());
     }
 
-    public loop (){
+    public void loop (){
         boolean dead=false;
         while(!dead){
-            dead= comprobarSiguiente();
+            // comprobar si se ha llegado al periodo.
+
+            //comprobar cambios de dirección
+
+            dead= comprobarSiguiente(); // comprueba si la serpiente se acaba de meter un tortazo
             serpiente.avanzar();
+
+
+            //comprobar si se ha comido una fruta/ crear otra
+
+            //actualizar puntuación
+
+            //actualizar tiempo de periodo;
         }
     }
 
-   /* public boolean comprobarSiguiente(){
-        switch (serpiente.getDireccionActual()){
-            case "arriba" : return (map[serpiente.getC]);
+   public boolean comprobarSiguiente(){
+        int filacabeza = serpiente.getTrozosSerpiente().get(0).getFila();
+        int colcabeza = serpiente.getTrozosSerpiente().get(0).getColumna();
+
+        switch (serpiente.getDireccionActual()){ //actualizar el método para que funcione con SNAKE.ARRIBA
+            case "arriba" : return (map[filacabeza-1][colcabeza]=="X" || map[filacabeza-1][colcabeza]=="S"); break;
+            case "izquierda" : return (map[filacabeza][colcabeza+1]=="X" || map[filacabeza][colcabeza+1]=="S"); break;
+            case "derecha" : return (map[filacabeza][colcabeza-1]=="X" || map[filacabeza][colcabeza-1]=="S"); break;
+            case "abajo" : return (map[filacabeza+1][colcabeza]=="X" || map[filacabeza+1][colcabeza]=="S"); break;
         }
-    } */
+    }
 
     public int[][] copiarMapaC (Map mapC){
         char[][] result = new char[mapC.getMap().length()][mapC.getMap()[0].length()];
