@@ -23,11 +23,11 @@ public class Game {
         }
     }
 
-    public boolean comprobarSiguiente(){
+   /* public boolean comprobarSiguiente(){
         switch (serpiente.getDireccionActual()){
             case "arriba" : return (map[serpiente.getC]);
         }
-    }
+    } */
 
     public int[][] copiarMapaC (Map mapC){
         char[][] result = new char[mapC.getMap().length()][mapC.getMap()[0].length()];
