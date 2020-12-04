@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Snake {
+
+    private String hola = "hola german";
+
     public static String ARRIBA = "ARRIBA";
     public static String IZQUIERDA = "IZQUIERDA";
     public static String DERECHA = "DERECHA";
