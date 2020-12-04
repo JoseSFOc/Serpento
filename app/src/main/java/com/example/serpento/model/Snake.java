@@ -10,13 +10,13 @@ public class Snake {
     String direccionActual;
     String ultimaDireccion;
     int tam;
-    List<TrozoSerpiente> trozosSerpiente;
+    List<Piece> trozosSerpiente;
 
 
     public Snake(int tam, int filaInicial, int columnaInicial, String direccionInicial){
         this.tam = tam;
-        trozosSerpiente = new LinkedList<TrozoSerpiente>();
-        trozosSerpiente.add(new TrozoSerpiente(filaInicial,columnaInicial)); //crear tantos como tam. Comprobar si pueden crearse en esos puntos
+        trozosSerpiente = new LinkedList<Piece>>();
+        trozosSerpiente.add(new Piece(filaInicial,columnaInicial)); //crear tantos como tam. Comprobar si pueden crearse en esos puntos
         ultimaDireccion = "derecha";
         direccionActual = "derecha"; //direccionInicial
     }
@@ -51,13 +51,13 @@ public class Snake {
     public void añadirTrozoDelante(String sentido){
         //Comprobar que no se cree en un obstaculo
         switch (direccionActual){
-            case "arriba":      trozosSerpiente.add(0, new TrozoSerpiente(trozosSerpiente.get(0).fila+1,trozosSerpiente.get(0).columna));
+            case "arriba":      trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila+1,trozosSerpiente.get(0).columna));
                                 break;
-            case "abajo":       trozosSerpiente.add(0, new TrozoSerpiente(trozosSerpiente.get(0).fila-1,trozosSerpiente.get(0).columna));
+            case "abajo":       trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila-1,trozosSerpiente.get(0).columna));
                                 break;
-            case "izquierda":   trozosSerpiente.add(0, new TrozoSerpiente(trozosSerpiente.get(0).fila,trozosSerpiente.get(0).columna-1));
+            case "izquierda":   trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila,trozosSerpiente.get(0).columna-1));
                                 break;
-            case "derecha":     trozosSerpiente.add(0, new TrozoSerpiente(trozosSerpiente.get(0).fila,trozosSerpiente.get(0).columna+1));
+            case "derecha":     trozosSerpiente.add(0, new Piece(trozosSerpiente.get(0).fila,trozosSerpiente.get(0).columna+1));
                                 break;
         }
     }

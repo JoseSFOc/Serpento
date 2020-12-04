@@ -8,13 +8,13 @@ package com.example.serpento.model;
 
 import java.util.Random;
 
-public class Mapa {
+public class Map {
     char[][] mapa;
     int filIni;
     int colIni;
     char dirIni;
 
-    public Mapa(String direccion){
+    public Map(String direccion){
 
     }
 

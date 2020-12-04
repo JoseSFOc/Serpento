@@ -1,10 +1,12 @@
-package com.example.serpento;
+package com.example.serpento.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.serpento.R;
 
 public class MainActivity extends AppCompatActivity {
 
