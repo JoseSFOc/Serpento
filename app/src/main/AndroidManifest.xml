@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Serpento">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".view.SettingsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
-            android:name=".ScoreActivity"
+            android:name=".view.ScoreActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
-            android:name=".GameBoardActivity"
+            android:name=".view.GameBoardActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>

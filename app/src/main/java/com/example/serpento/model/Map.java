@@ -17,7 +17,7 @@ public class Map {
     char dirIni;
 
     public Map(String nombre){
-        //MapDBHelper dbHelper = new MapDBHelper();
+        MapDBHelper dbHelper = new MapDBHelper();
     }
 
     public char[][] getMapa() {

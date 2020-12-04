@@ -1,4 +1,4 @@
-package com.example.serpento;
+package com.example.serpento.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.serpento.R;
 
 import java.util.List;
 import java.util.Random;
