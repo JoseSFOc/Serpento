@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playHandler(View view) {
-        Intent gbIntent = new Intent(this, GameBoardActivity.class);
+        Intent gbIntent = new Intent(this, MapSelectionActivity.class);
         startActivity(gbIntent);
     }
 

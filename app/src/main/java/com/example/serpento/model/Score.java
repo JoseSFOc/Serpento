@@ -24,4 +24,8 @@ public class Score {
     public String getNick(){
         return nick;
     }
+
+    public String toString() {
+        return nick + " | " + puntos;
+    }
 }

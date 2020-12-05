@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ScoreDBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "serpento.db";
+    private static final String DATABASE_NAME = "serpentoScores.db";
 
     public ScoreDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

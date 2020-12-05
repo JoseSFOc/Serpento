@@ -1,40 +1,43 @@
 package com.example.serpento.model;
 
-
 // 'X' = muro
 // 'S' = serpiente
 // 'F' = fruta
 // ' ' = vacío
 
-import android.database.sqlite.SQLiteDatabase;
-
-import com.example.serpento.dataBase.MapDBHelper;
-
-import java.util.Random;
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Map {
+public class Map implements Serializable {
     char[][] mapa;
+    String name;
     int filIni;
     int colIni;
     char dirIni;
 
-    public Map(String nombre){ //Amigo esto hay que arreglarlo
-        //SQLiteDatabase db = dbHelper.
-        //MapDBHelper dbHelper = new MapDBHelper();
-        Scanner sc = new Scanner("base de datos");
+    public Map() {
+        this.name = "";
+        this.filIni = 0;
+        this.colIni = 0;
+        this.dirIni = 'a';
+        this.mapa = new char[20][20];
+    }
 
-        while (sc.hasNext()) {
-            String caracter = sc.nextLine();
+    public Map(String name, int row, int col, String direction, String mapString) {
+        this.name = name;
+        this.filIni = row;
+        this.colIni = col;
+        this.dirIni = direction.charAt(0);
 
-            mapa = new char[20][20];
+        this.mapa = new char[20][20];
+        readMap(mapString);
+    }
 
-            for (int i = 0; i<20;i++) {
-               for(int j=0;j<caracter.length();j++) {
-                   mapa[i][j] = caracter.charAt(j);
-               }
-            }
-        }
+    private void readMap(String mapString) {
+        Scanner sc = new Scanner(mapString);
+        int i = 0;
+
+        // Leete el mapa
     }
 
     public char[][] getMapa() {
@@ -67,5 +70,9 @@ public class Map {
 
     public void setDirIni(char dirIni) {
         this.dirIni = dirIni;
+    }
+
+    public String toString() {
+        return name;
     }
 }

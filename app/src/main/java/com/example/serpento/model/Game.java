@@ -33,7 +33,7 @@ public class Game {
 
     public Game(Map mapC, int periodoAcciónRutinaria, ImageView view, TextView scoreview){
         this.map = copiarMapaC(mapC);
-        serpiente = new Snake(3, mapC.getFilIni(), mapC.getColIni(), mapC.getDirIni());
+        serpiente = new Snake(mapC.getFilIni(), mapC.getColIni(), mapC.getDirIni()+"");
 
 
         periodoAcciónRutinariaMs = periodoAcciónRutinaria;

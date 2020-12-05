@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Serpento">
         <activity
+            android:name=".view.MapSelectionActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
             android:name=".view.SettingsActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".view.ScoreActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".view.GameBoardActivity"
             android:screenOrientation="landscape"
@@ -27,6 +31,7 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
