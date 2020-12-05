@@ -1,10 +1,10 @@
 package com.example.serpento.model;
 
-
 import java.util.LinkedList;
 import java.util.List;
 
 public class Snake {
+
     public static String ARRIBA = "ARRIBA";
     public static String IZQUIERDA = "IZQUIERDA";
     public static String DERECHA = "DERECHA";
@@ -15,19 +15,19 @@ public class Snake {
     int tam;
     List<Piece> trozosSerpiente;
 
-    public Snake(int tam, int filaInicial, int columnaInicial, String direccionInicial){
-        this.tam = tam;
+    public Snake(int filaInicial, int columnaInicial, String direccionInicial){
+        this.tam = 3;
         trozosSerpiente = new LinkedList<Piece>();
         trozosSerpiente.add(new Piece(filaInicial,columnaInicial));
         while(tam > trozosSerpiente.size()){
             avanzar();
         }
-        ultimaDireccion = "direccionInicial"; // Noel, así no se asignan variables string xdddddddddd
+        ultimaDireccion = "direccionInicial";
         direccionActual = "direccionInicial";
     }
 
     public void girar(String sentido){
-        //Creo que esto da error porque va a comprobar direcciones de memoria
+
         if (sentido == ARRIBA && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
             direccionActual = ARRIBA;
         }else if (sentido == ABAJO && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
@@ -69,37 +69,4 @@ public class Snake {
     public void quitarUltimoTrozo() {
         trozosSerpiente.remove(trozosSerpiente.size()-1);
     }
-
-    public String getDireccionActual() {
-        return direccionActual;
-    }
-
-    public void setDireccionActual(String direccionActual) {
-        this.direccionActual = direccionActual;
-    }
-
-    public String getUltimaDireccion() {
-        return ultimaDireccion;
-    }
-
-    public void setUltimaDireccion(String ultimaDireccion) {
-        this.ultimaDireccion = ultimaDireccion;
-    }
-
-    public int getTam() {
-        return tam;
-    }
-
-    public void setTam(int tam) {
-        this.tam = tam;
-    }
-
-    public List<Piece> getTrozosSerpiente() {
-        return trozosSerpiente;
-    }
-
-    public void setTrozosSerpiente(List<Piece> trozosSerpiente) {
-        this.trozosSerpiente = trozosSerpiente;
-    }
-
 }
