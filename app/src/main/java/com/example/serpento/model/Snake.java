@@ -5,9 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Snake {
-
-    private String hola = "hola german";
-
     public static String ARRIBA = "ARRIBA";
     public static String IZQUIERDA = "IZQUIERDA";
     public static String DERECHA = "DERECHA";
@@ -25,12 +22,12 @@ public class Snake {
         while(tam > trozosSerpiente.size()){
             avanzar();
         }
-        ultimaDireccion = "direccionInicial";
+        ultimaDireccion = "direccionInicial"; // Noel, así no se asignan variables string xdddddddddd
         direccionActual = "direccionInicial";
     }
 
     public void girar(String sentido){
-
+        //Creo que esto da error porque va a comprobar direcciones de memoria
         if (sentido == ARRIBA && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
             direccionActual = ARRIBA;
         }else if (sentido == ABAJO && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
@@ -104,4 +101,5 @@ public class Snake {
     public void setTrozosSerpiente(List<Piece> trozosSerpiente) {
         this.trozosSerpiente = trozosSerpiente;
     }
+
 }

@@ -7,17 +7,16 @@ package com.example.serpento.model;
 // ' ' = vacío
 
 import android.database.sqlite.SQLiteDatabase;
-
 import java.util.Random;
 
 public class Map {
     char[][] mapa;
     int filIni;
     int colIni;
-    char dirIni;
+    String dirIni; // Esto lo he cambiado porque era de tipo char
 
     public Map(String nombre){
-        MapDBHelper dbHelper = new MapDBHelper();
+       // MapDBHelper dbHelper = new MapDBHelper();
     }
 
     public char[][] getMapa() {
@@ -44,11 +43,11 @@ public class Map {
         this.colIni = colIni;
     }
 
-    public char getDirIni() {
+    public String getDirIni() {
         return dirIni;
     }
 
-    public void setDirIni(char dirIni) {
+    public void setDirIni(String dirIni) {
         this.dirIni = dirIni;
     }
 }
