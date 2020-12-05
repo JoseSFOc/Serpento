@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.serpento.R;
 import com.example.serpento.dataBase.ScoreContract.ScoreEntry;
 import com.example.serpento.dataBase.ScoreDBHelper;
+import com.example.serpento.model.Game;
+import com.example.serpento.model.Snake;
 
 public class GameBoardActivity extends AppCompatActivity {
 
@@ -26,6 +28,9 @@ public class GameBoardActivity extends AppCompatActivity {
 
         dbHelper = new ScoreDBHelper(getApplicationContext());
         scoreTextView = this.findViewById(R.id.scoreText);
+
+        //Game game= new Game(CargarMapita, 1000, this.findViewById(R.id.gameBoardImgGreen),scoreTextView);
+        //game.loop();
     }
 
     protected void onResume() {
@@ -60,18 +65,24 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void upPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "UP", Toast.LENGTH_SHORT).show();
+        //game.cambiarDireccion(Snake.ARRIBA);
+
     }
 
     public void rightPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "RIGHT", Toast.LENGTH_SHORT).show();
+        //game.cambiarDireccion(Snake.DERECHA);
+
     }
 
     public void downPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "DOWN", Toast.LENGTH_SHORT).show();
+        //game.cambiarDireccion(Snake.ABAJO);
     }
 
     public void leftPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "LEFT", Toast.LENGTH_SHORT).show();
+        //game.cambiarDireccion(Snake.IZQUIERDA);
     }
 
     public TextView getScoreTextView() {

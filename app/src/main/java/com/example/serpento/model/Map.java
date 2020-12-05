@@ -16,7 +16,7 @@ public class Map {
     String dirIni; // Esto lo he cambiado porque era de tipo char
 
     public Map(String nombre){
-       // MapDBHelper dbHelper = new MapDBHelper();
+
     }
 
     public char[][] getMapa() {

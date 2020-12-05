@@ -13,28 +13,39 @@ import android.graphics.Color;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.serpento.R;
+import com.example.serpento.view.GameBoardActivity;
 
 public class Game {
 
     private char[][] map;
     private Snake serpiente;
+
     private int periodoAcciónRutinariaMs;
     private long tiempoUltimaAcción;
     private int puntuacion;
+
     private Bitmap bitmap;
     private ImageView view;
+    private TextView score;
 
-    public Game(Map mapC, int periodoAcciónRutinaria, ImageView view){
+    public Game(Map mapC, int periodoAcciónRutinaria, ImageView view, TextView scoreview){
         this.map = copiarMapaC(mapC);
-        periodoAcciónRutinariaMs = periodoAcciónRutinaria;
         serpiente = new Snake(3, mapC.getFilIni(), mapC.getColIni(), mapC.getDirIni());
+
+
+        periodoAcciónRutinariaMs = periodoAcciónRutinaria;
         tiempoUltimaAcción = System.currentTimeMillis();
         puntuacion= 0;
+
+
         bitmap = Bitmap.createBitmap(mapC.getMapa().length,mapC.getMapa()[0].length,Bitmap.Config.ARGB_8888);
         dibujarbitmap(map, view);
         this.view = view;
+        score = scoreview;
+        score.setText(0);
     }
 
     public void dibujarbitmap(char[][] map, ImageView view){
@@ -61,11 +72,13 @@ public class Game {
         boolean dead=false;
         puntuacion= 0;
         boolean generarFruta;
+
         while(!dead){
             // comprobar si se ha llegado al periodo.
             if(System.currentTimeMillis()> tiempoUltimaAcción + periodoAcciónRutinariaMs) {
 
                 //comprobar cambios de dirección
+
 
                 dead = comprobarSiguiente('X') || comprobarSiguiente('S'); // comprueba si la serpiente se va a meter un tortazo
 
@@ -92,7 +105,12 @@ public class Game {
                 }
 
                 //dibujar
-                dibujar();
+                //Dibujar Imagen
+                dibujarbitmap(map,view);
+
+                //Cambiar puntuación
+                score.setText(puntuacion);
+
 
                 //actualizar tiempo de periodo
                 tiempoUltimaAcción += periodoAcciónRutinariaMs;
@@ -143,10 +161,7 @@ public class Game {
     }
 
 
-    public void dibujar(){
-        //Dibujar Imagen
-        dibujarbitmap(map,view);
-
-        //Cambiar puntuación
+    public void cambiarDireccion(String sentido){
+        serpiente.girar(sentido);
     }
 }
