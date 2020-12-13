@@ -35,9 +35,15 @@ public class Map implements Serializable {
 
     private void readMap(String mapString) {
         Scanner sc = new Scanner(mapString);
+        String linea;
         int i = 0;
-
-        // Leete el mapa
+        while(sc.hasNextLine()){
+            linea = sc.nextLine();
+            for(int j = 0; j<linea.length();j++) {
+                mapa[i][j] = linea.charAt(j);
+            }
+            i++;
+        }
     }
 
     public char[][] getMapa() {
