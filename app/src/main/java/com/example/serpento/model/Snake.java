@@ -28,7 +28,7 @@ public class Snake {
 
     public void girar(String sentido){
         //Creo que esto da error porque va a comprobar direcciones de memoria
-        
+
         if (sentido == ARRIBA && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
             direccionActual = ARRIBA;
         }else if (sentido == ABAJO && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
