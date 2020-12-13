@@ -22,20 +22,19 @@ public class Snake {
         while(tam > trozosSerpiente.size()){
             avanzar();
         }
-        ultimaDireccion = "direccionInicial";  // Noel, así no se asignan variables string xdddddddddd
-        direccionActual = "direccionInicial";
+        ultimaDireccion = direccionInicial;
+        direccionActual = direccionInicial;
     }
 
     public void girar(String sentido){
-        //Creo que esto da error porque va a comprobar direcciones de memoria
-        
-        if (sentido == ARRIBA && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
+
+        if (sentido.equals(ARRIBA)  && (ultimaDireccion.equals(IZQUIERDA)  || ultimaDireccion.equals(DERECHA))) {
             direccionActual = ARRIBA;
-        }else if (sentido == ABAJO && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
+        }else if (sentido.equals(ABAJO)  && (ultimaDireccion.equals(IZQUIERDA)  || ultimaDireccion.equals(DERECHA))) {
             direccionActual = ABAJO;
-        }else if (sentido == IZQUIERDA && (ultimaDireccion == ABAJO || ultimaDireccion == ARRIBA)) {
+        }else if (sentido.equals(IZQUIERDA)  && (ultimaDireccion.equals(ABAJO)  || ultimaDireccion.equals(ARRIBA))) {
             direccionActual = IZQUIERDA;
-        }else if (sentido == DERECHA && (ultimaDireccion == ABAJO || ultimaDireccion == ARRIBA)) {
+        }else if (sentido.equals(DERECHA)  && (ultimaDireccion.equals(ABAJO)  || ultimaDireccion.equals(ARRIBA))) {
             direccionActual = DERECHA;
         }
     }
@@ -69,37 +68,5 @@ public class Snake {
 
     public void quitarUltimoTrozo() {
         trozosSerpiente.remove(trozosSerpiente.size()-1);
-    }
-
-    public String getDireccionActual() {
-        return direccionActual;
-    }
-
-    public void setDireccionActual(String direccionActual) {
-        this.direccionActual = direccionActual;
-    }
-
-    public String getUltimaDireccion() {
-        return ultimaDireccion;
-    }
-
-    public void setUltimaDireccion(String ultimaDireccion) {
-        this.ultimaDireccion = ultimaDireccion;
-    }
-
-    public int getTam() {
-        return tam;
-    }
-
-    public void setTam(int tam) {
-        this.tam = tam;
-    }
-
-    public List<Piece> getTrozosSerpiente() {
-        return trozosSerpiente;
-    }
-
-    public void setTrozosSerpiente(List<Piece> trozosSerpiente) {
-        this.trozosSerpiente = trozosSerpiente;
     }
 }
