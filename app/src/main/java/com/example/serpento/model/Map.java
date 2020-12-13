@@ -44,7 +44,6 @@ public class Map implements Serializable {
             }
             i++;
         }
-
     }
 
     public char[][] getMapa() {
