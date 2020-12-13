@@ -28,13 +28,13 @@ public class Snake {
 
     public void girar(String sentido){
 
-        if (sentido == ARRIBA && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
+        if (sentido.equals(ARRIBA)  && (ultimaDireccion.equals(IZQUIERDA)  || ultimaDireccion.equals(DERECHA))) {
             direccionActual = ARRIBA;
-        }else if (sentido == ABAJO && (ultimaDireccion == IZQUIERDA || ultimaDireccion == DERECHA)) {
+        }else if (sentido.equals(ABAJO)  && (ultimaDireccion.equals(IZQUIERDA)  || ultimaDireccion.equals(DERECHA))) {
             direccionActual = ABAJO;
-        }else if (sentido == IZQUIERDA && (ultimaDireccion == ABAJO || ultimaDireccion == ARRIBA)) {
+        }else if (sentido.equals(IZQUIERDA)  && (ultimaDireccion.equals(ABAJO)  || ultimaDireccion.equals(ARRIBA))) {
             direccionActual = IZQUIERDA;
-        }else if (sentido == DERECHA && (ultimaDireccion == ABAJO || ultimaDireccion == ARRIBA)) {
+        }else if (sentido.equals(DERECHA)  && (ultimaDireccion.equals(ABAJO)  || ultimaDireccion.equals(ARRIBA))) {
             direccionActual = DERECHA;
         }
     }
