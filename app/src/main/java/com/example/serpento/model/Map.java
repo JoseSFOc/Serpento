@@ -46,6 +46,15 @@ public class Map implements Serializable {
         }
     }
 
+    public void showMap(){
+        for (int i=0;i<mapa.length;i++) {
+            for(int j=0;j<mapa[0].length;j++){
+                System.out.print(mapa[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
     public char[][] getMapa() {
         return mapa;
     }
