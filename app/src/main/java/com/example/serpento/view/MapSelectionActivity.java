@@ -17,9 +17,12 @@ import com.example.serpento.R;
 import com.example.serpento.dataBase.MapContract;
 import com.example.serpento.dataBase.MapDBHelper;
 import com.example.serpento.model.Map;
+import com.example.serpento.model.SingletonMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class MapSelectionActivity extends AppCompatActivity {
 
@@ -28,31 +31,33 @@ public class MapSelectionActivity extends AppCompatActivity {
     private ArrayAdapter<Map> adapter;
     private MapDBHelper dbHelper;
     private Map selectedMap;
+    private SortedMap<String,Object> singletonMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_selection);
 
+        hideStatusBar();
+        initMap();
+
         dbHelper = new MapDBHelper(getApplicationContext());
-        mapList = new ArrayList<>();
-        adapter = new ArrayAdapter<Map>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mapList);
+        if((mapList = (List)singletonMap.get("mapList")) == null) mapList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mapList);
         selectedMap = new Map();
         mapListView = this.findViewById(android.R.id.list);
-        mapListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Map item = (Map)parent.getItemAtPosition(position);
-                setSelectedMap(item);
-            }
+        mapListView.setOnItemClickListener((parent, view, position, id) -> {
+            Map item = (Map)parent.getItemAtPosition(position);
+            setSelectedMap(item);
         });
 
-        hideStatusBar();
-        try{
-            readMapDatabase();
-        } catch(SQLException e) {
-            loadMaps();
-            readMapDatabase();
+        if(mapList.size() == 0) {
+            try{
+                readMapDatabase();
+            } catch(SQLException e) {
+                loadMaps();
+                readMapDatabase();
+            }
         }
         populateList();
     }
@@ -61,6 +66,15 @@ public class MapSelectionActivity extends AppCompatActivity {
         super.onResume();
         hideStatusBar();
     }
+
+    private void initMap() {
+        singletonMap = (SortedMap<String,Object>)SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
+        if(singletonMap == null) {
+            singletonMap = new TreeMap<>();
+            SingletonMap.getInstance().put(MainActivity.SHARED_DATA_KEY, singletonMap);
+        }
+    }
+
 
     private void readMapDatabase() throws SQLException {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -86,6 +100,8 @@ public class MapSelectionActivity extends AppCompatActivity {
         cursor.close();
 
         if(mapList.size() == 0) throw new SQLException();
+
+        singletonMap.put("mapList",mapList);
     }
 
     public Map getSelectedMap() {
@@ -99,7 +115,7 @@ public class MapSelectionActivity extends AppCompatActivity {
 
     private void beginGame() {
         Intent gbIntent = new Intent(this, GameBoardActivity.class);
-        gbIntent.putExtra("map", selectedMap);
+        singletonMap.put("selectedMap", selectedMap);
         startActivity(gbIntent);
     }
 

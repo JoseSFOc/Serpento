@@ -2,6 +2,9 @@ package com.example.serpento.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,21 +12,66 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.serpento.R;
+import com.example.serpento.dataBase.MapContract;
+import com.example.serpento.dataBase.SettingsContract;
+import com.example.serpento.dataBase.SettingsDBHelper;
+import com.example.serpento.model.SingletonMap;
 
 import java.util.List;
 import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private SettingsDBHelper dbHelper;
+    private Switch leftSwitch;
+    private SortedMap<String, Object> singletonMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        dbHelper = new SettingsDBHelper(getApplicationContext());
+        leftSwitch = findViewById(R.id.leftSwitch);
+
+        initMap();
+        readSettings();
         hideStatusBar();
+    }
+
+    private void initMap() {
+        singletonMap = (SortedMap<String,Object>) SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
+        if(singletonMap == null) {
+            singletonMap = new TreeMap<>();
+            SingletonMap.getInstance().put(MainActivity.SHARED_DATA_KEY, singletonMap);
+        }
+    }
+
+
+    private void readSettings() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                SettingsContract.SettingsEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        while(cursor.moveToNext()) {
+            String setting = cursor.getString(cursor.getColumnIndexOrThrow(SettingsContract.SettingsEntry.COLUMN_SETTING));
+            String value = cursor.getString(cursor.getColumnIndexOrThrow(SettingsContract.SettingsEntry.COLUMN_VALUE));
+
+            if(setting.equals("LHANDED")) leftSwitch.setChecked(Boolean.parseBoolean(value));
+        }
     }
 
     private void hideStatusBar() {
@@ -31,6 +79,18 @@ public class SettingsActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    public void applyChanges(View view) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SettingsContract.SettingsEntry.COLUMN_SETTING, "LHANDED");
+        values.put(SettingsContract.SettingsEntry.COLUMN_VALUE, leftSwitch.isChecked() + "");
+
+        db.replace(SettingsContract.SettingsEntry.TABLE_NAME, null, values);
+        singletonMap.put("LHANDED", leftSwitch.isChecked());
+        finish();
     }
 
     public void backHandler(View view) {
