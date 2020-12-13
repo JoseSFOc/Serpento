@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/gameBoardImgWhite"
+        android:layout_toRightOf="@id/gameBoardImgWhite"
         android:scaleType="fitXY"
         android:src="@drawable/adce74_backgroud"
         android:id="@+id/gameBoardImgGreen"
@@ -20,7 +20,7 @@
         android:layout_width="260sp"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:src="@drawable/ffce89_background"
         android:id="@+id/gameBoardImgWhite"
         />
@@ -29,9 +29,9 @@
         android:id="@+id/downBtn"
         android:layout_width="60sp"
         android:layout_height="60sp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="100sp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="100sp"
         android:layout_marginBottom="50sp"
         android:onClick="downPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
@@ -41,8 +41,8 @@
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:layout_above="@+id/downBtn"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="100sp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="100sp"
         android:layout_marginBottom="60sp"
         android:onClick="upPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
@@ -52,8 +52,8 @@
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:layout_above="@+id/downBtn"
-        android:layout_alignParentRight="true"
         android:layout_marginRight="40sp"
+        android:layout_toRightOf="@+id/leftBtn"
         android:onClick="rightPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
@@ -62,9 +62,9 @@
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:layout_above="@+id/downBtn"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="40sp"
         android:layout_marginRight="60sp"
-        android:layout_toLeftOf="@+id/rightBtn"
         android:onClick="leftPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
 
@@ -73,8 +73,8 @@
         android:id="@+id/menuBtn"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="50sp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="50sp"
         android:layout_marginTop="40sp"
         android:layout_below="@+id/scoreText"
         android:onClick="menuPushed"
@@ -84,9 +84,9 @@
         android:id="@+id/scoreTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="10sp"
-        android:layout_marginRight="120sp"
+        android:layout_marginLeft="20sp"
         android:clickable="false"
         android:text="Score: "
         android:textColor="@color/black"
@@ -96,11 +96,11 @@
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/scoreTitle"
         android:layout_marginTop="10sp"
-        android:layout_marginRight="40sp"
+        android:layout_marginLeft="60sp"
         android:text="0"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
 </RelativeLayout>
