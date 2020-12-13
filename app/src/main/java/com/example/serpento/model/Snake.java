@@ -22,8 +22,8 @@ public class Snake {
         while(tam > trozosSerpiente.size()){
             avanzar();
         }
-        ultimaDireccion = "direccionInicial";
-        direccionActual = "direccionInicial";
+        ultimaDireccion = direccionInicial;
+        direccionActual = direccionInicial;
     }
 
     public void girar(String sentido){
