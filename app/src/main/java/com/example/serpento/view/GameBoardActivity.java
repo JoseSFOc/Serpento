@@ -15,6 +15,8 @@ import com.example.serpento.R;
 import com.example.serpento.dataBase.ScoreContract.ScoreEntry;
 import com.example.serpento.dataBase.ScoreDBHelper;
 import com.example.serpento.model.Map;
+import com.example.serpento.model.Snake;
+import com.example.serpento.model.Game;
 import com.example.serpento.model.SingletonMap;
 
 import java.util.SortedMap;
@@ -27,7 +29,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private SortedMap<String,Object> singletonMap;
     private String[] options = {"Exit"};
     private Map selectedMap;
-
+    private Game game;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +45,8 @@ public class GameBoardActivity extends AppCompatActivity {
         scoreTextView = this.findViewById(R.id.scoreText);
         selectedMap = (Map)singletonMap.get("selectedMap");
 
-        //Game game= new Game(CargarMapita, 1000, this.findViewById(R.id.gameBoardImgGreen),scoreTextView);
-        //game.loop();
+        game= new Game(selectedMap, 1000, this.findViewById(R.id.gameBoardImgGreen),scoreTextView);
+        game.loop();
     }
 
     protected void onResume() {
@@ -93,24 +95,24 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void upPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "UP", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.ARRIBA);
+        game.cambiarDireccion(Snake.ARRIBA);
 
     }
 
     public void rightPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "RIGHT", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.DERECHA);
+        game.cambiarDireccion(Snake.DERECHA);
 
     }
 
     public void downPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "DOWN", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.ABAJO);
+        game.cambiarDireccion(Snake.ABAJO);
     }
 
     public void leftPushed(View view) {
         Toast.makeText(this.getApplicationContext(), "LEFT", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.IZQUIERDA);
+        game.cambiarDireccion(Snake.IZQUIERDA);
     }
 
     public TextView getScoreTextView() {
