@@ -31,7 +31,7 @@ public class MapSelectionActivity extends AppCompatActivity {
     private ArrayAdapter<Map> adapter;
     private MapDBHelper dbHelper;
     private Map selectedMap;
-    private SortedMap<String,Object> singletonMap;
+    private SortedMap<String, Object> singletonMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +42,19 @@ public class MapSelectionActivity extends AppCompatActivity {
         initMap();
 
         dbHelper = new MapDBHelper(getApplicationContext());
-        if((mapList = (List)singletonMap.get("mapList")) == null) mapList = new ArrayList<>();
+        if ((mapList = (List) singletonMap.get("mapList")) == null) mapList = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mapList);
         selectedMap = new Map();
         mapListView = this.findViewById(android.R.id.list);
         mapListView.setOnItemClickListener((parent, view, position, id) -> {
-            Map item = (Map)parent.getItemAtPosition(position);
+            Map item = (Map) parent.getItemAtPosition(position);
             setSelectedMap(item);
         });
 
-        if(mapList.size() == 0) {
-            try{
+        if (mapList.size() == 0) {
+            try {
                 readMapDatabase();
-            } catch(SQLException e) {
+            } catch (SQLException e) {
                 loadMaps();
                 readMapDatabase();
             }
@@ -68,8 +68,8 @@ public class MapSelectionActivity extends AppCompatActivity {
     }
 
     private void initMap() {
-        singletonMap = (SortedMap<String,Object>)SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
-        if(singletonMap == null) {
+        singletonMap = (SortedMap<String, Object>) SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
+        if (singletonMap == null) {
             singletonMap = new TreeMap<>();
             SingletonMap.getInstance().put(MainActivity.SHARED_DATA_KEY, singletonMap);
         }
@@ -99,9 +99,9 @@ public class MapSelectionActivity extends AppCompatActivity {
         }
         cursor.close();
 
-        if(mapList.size() == 0) throw new SQLException();
+        if (mapList.size() == 0) throw new SQLException();
 
-        singletonMap.put("mapList",mapList);
+        singletonMap.put("mapList", mapList);
     }
 
     public Map getSelectedMap() {
@@ -143,27 +143,26 @@ public class MapSelectionActivity extends AppCompatActivity {
         values.put(MapContract.MapEntry.COLUMN_COLUMN, 15);
         values.put(MapContract.MapEntry.COLUMN_DIRECTION, "s");
         values.put(MapContract.MapEntry.COLUMN_MAP,
-                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                        "XXXXXXXXXXXXXXXXXXXX\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "X                  X\n" +
+                        "XXXXXXXXXXXXXXXXXXXX");
 
         // Insert the new row, returning the primary key value of the new row
         db.insert(MapContract.MapEntry.TABLE_NAME, null, values);
