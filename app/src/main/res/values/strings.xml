@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Serpento</string>
+    <string name="play">Jugar</string>
+
+    <string name="settings">Opciones</string>
+    <string name="lefthanded">Zurdo </string>
+    <string name="apply">GUARDAR\nCAMBIOS</string>
+
+    <string name="scoresTitle">PUNTUACIONES</string>
+
+    <string name="selectMap">SELECCIONA UN MAPA</string>
+
+    <string name="scoreGame">Puntos: </string>
+    <string name="menuExit">Salir</string>
 </resources>
