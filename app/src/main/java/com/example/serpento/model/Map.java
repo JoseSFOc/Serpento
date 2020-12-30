@@ -29,7 +29,7 @@ public class Map implements Serializable {
         this.colIni = col;
         this.dirIni = direction;
 
-        this.mapa = new char[20][20];
+        this.mapa = new char[100][100];
         readMap(mapString);
     }
 

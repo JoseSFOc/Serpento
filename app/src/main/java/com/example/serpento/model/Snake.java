@@ -19,11 +19,13 @@ public class Snake {
         this.tam = 3;
         trozosSerpiente = new LinkedList<Piece>();
         trozosSerpiente.add(new Piece(filaInicial,columnaInicial));
+
+        ultimaDireccion = direccionInicial;
+        direccionActual = direccionInicial;
+
         while(tam > trozosSerpiente.size()){
             avanzar();
         }
-        ultimaDireccion = direccionInicial;
-        direccionActual = direccionInicial;
     }
 
     public void girar(String sentido){

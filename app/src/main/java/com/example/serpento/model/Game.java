@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
+import android.view.SurfaceView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,24 +20,29 @@ import com.example.serpento.model.Snake;
 import com.example.serpento.R;
 import com.example.serpento.view.GameBoardActivity;
 
-public class Game {
 
-    private char[][] map;
+public class Game extends SurfaceView implements Runnable{
+
+    public char[][] map;
     private Snake serpiente;
 
     private int periodoAcciónRutinariaMs;
     private long tiempoUltimaAcción;
     private int puntuacion;
 
-    private Bitmap bitmap;
+    public Bitmap bitmap;
     private ImageView view;
     private TextView score;
 
-    public Game(Map mapC, int periodoAcciónRutinaria, ImageView view, TextView scoreview){
+    public Game(Map mapC, int periodoAcciónRutinaria, ImageView view, TextView scoreview, GameBoardActivity gba){
+        super(gba);
         this.map = copiarMapaC(mapC);
-        serpiente = new Snake(mapC.getFilIni(), mapC.getColIni(), mapC.getDirIni()+"");
+        serpiente = new Snake(mapC.getFilIni(), mapC.getColIni(), mapC.getDirIni());
+        for(Piece p : serpiente.getTrozosSerpiente()){
+            this.map[p.getFila()][p.getColumna()] = 'S';
+        }
 
-
+        this.crearFruta();
         periodoAcciónRutinariaMs = periodoAcciónRutinaria;
         tiempoUltimaAcción = System.currentTimeMillis();
         puntuacion= 0;
@@ -46,13 +52,13 @@ public class Game {
         dibujarbitmap(map, view);
         this.view = view;
         score = scoreview;
-        score.setText(0);
+        score.setText("0");
     }
 
     public void dibujarbitmap(char[][] map, ImageView view){
 
         for(int i=0; i<bitmap.getWidth(); i++){
-            for(int j=0; i<bitmap.getHeight(); j++){
+            for(int j=0; j<bitmap.getHeight(); j++){
                 int p = bitmap.getPixel(i,j);
                 if(map[i][j]==' '){
                     bitmap.setPixel(i,j, Color.WHITE);
@@ -70,58 +76,7 @@ public class Game {
         view.setImageBitmap(bitmap);
     }
     public void loop (){
-        boolean dead=false;
-        puntuacion= 0;
-        boolean generarFruta;
-
-        while(!dead){
-            // comprobar si se ha llegado al periodo.
-            if(System.currentTimeMillis()> tiempoUltimaAcción + periodoAcciónRutinariaMs) {
-
-                //comprobar cambios de dirección
-
-
-                dead = comprobarSiguiente('X') || comprobarSiguiente('S'); // comprueba si la serpiente se va a meter un tortazo
-
-                //comprobar si se ha comido una fruta/ crear otra / aumentar tamaño
-                if(generarFruta=comprobarSiguiente('F')){ //actualiza el valor de generarfruta por si hay que generarla
-                    //Por ahora he puesto que sólo aumente el tamaño y que aumente en 1 la puntuación
-
-                    puntuacion++;//actualizar puntuación
-
-                    serpiente.setTam(serpiente.tam+1); //Aumentar tamaño
-                }
-
-                //Actualizar el sistema
-                //Actualizar la serpiente
-                //Si no come, eliminar el último
-                map[serpiente.getTrozosSerpiente().get(serpiente.getTrozosSerpiente().size()-1).getFila()][serpiente.getTrozosSerpiente().get(serpiente.getTrozosSerpiente().size()-1).getColumna()] = generarFruta? 'S' : ' ';
-                //Mover
-                serpiente.avanzar();
-                //Actualizar donde está la cabeza
-                map[serpiente.getTrozosSerpiente().get(0).getFila()][serpiente.getTrozosSerpiente().get(0).getColumna()]='S';
-                //Con la serpiente actualizada, genera la fruta
-                if(generarFruta){
-                    crearFruta();
-                }
-
-                //dibujar
-                //Dibujar Imagen
-                dibujarbitmap(map,view);
-
-                //Cambiar puntuación
-                score.setText(puntuacion);
-
-
-                //actualizar tiempo de periodo
-                tiempoUltimaAcción += periodoAcciónRutinariaMs;
-            }
-        }
-
-        // acciones post muerte
-        // insertar puntuación en la bd
-        // reiniciar nivel/menú principal
-
+        System.out.println("LOOOOOOP");
     }
 
    public boolean comprobarSiguiente(char c){
@@ -154,8 +109,8 @@ public class Game {
         Random r = new Random();
         int fila,columna;
         do {
-            fila = r.nextInt() % map.length;
-            columna = r.nextInt() % map[0].length;
+            fila = Math.abs(r.nextInt() % map.length);
+            columna = Math.abs(r.nextInt() % map[0].length);
         }while(map[fila][columna]!= ' ');
 
         map[fila][columna] = 'F';
@@ -164,5 +119,66 @@ public class Game {
 
     public void cambiarDireccion(String sentido){
         serpiente.girar(sentido);
+    }
+
+    @Override
+    public void run() {
+        boolean dead=false;
+        puntuacion= 0;
+        boolean generarFruta;
+
+        while(!dead){
+            // comprobar si se ha llegado al periodo.
+            //if(System.currentTimeMillis()> tiempoUltimaAcción + periodoAcciónRutinariaMs) {
+
+            //comprobar cambios de dirección (Creo que no hace falta aquí)
+
+
+            dead = comprobarSiguiente('X') || comprobarSiguiente('S'); // comprueba si la serpiente se va a meter un tortazo
+
+            //comprobar si se ha comido una fruta/ crear otra / aumentar tamaño
+            if(generarFruta=comprobarSiguiente('F')){ //actualiza el valor de generarfruta por si hay que generarla
+                //Por ahora he puesto que sólo aumente el tamaño y que aumente en 1 la puntuación
+                puntuacion++;//actualizar puntuación
+
+                serpiente.setTam(serpiente.tam+1); //Aumentar tamaño
+            }
+
+            //Actualizar el sistema
+            //Actualizar la serpiente
+            //Si no come, eliminar el último
+            map[serpiente.getTrozosSerpiente().get(serpiente.getTrozosSerpiente().size()-1).getFila()][serpiente.getTrozosSerpiente().get(serpiente.getTrozosSerpiente().size()-1).getColumna()] = generarFruta? 'S' : ' ';
+
+            //Mover
+            serpiente.avanzar();
+            //Actualizar donde está la cabeza
+            map[serpiente.getTrozosSerpiente().get(0).getFila()][serpiente.getTrozosSerpiente().get(0).getColumna()]='S';
+            //Con la serpiente actualizada, genera la fruta
+            if(generarFruta){
+                crearFruta();
+            }
+
+            //dibujar
+            //Dibujar Imagen
+            dibujarbitmap(map,view);
+
+            //Cambiar puntuación
+            score.setText(puntuacion + "");
+
+            //actualizar tiempo de periodo
+            //tiempoUltimaAcción += periodoAcciónRutinariaMs;
+
+            //Dormir
+            try{
+                Thread.sleep(17);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            //}
+        }
+
+        // acciones post muerte
+        // insertar puntuación en la bd
+        // reiniciar nivel/menú principal
     }
 }

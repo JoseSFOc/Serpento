@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new SettingsDBHelper(getApplicationContext());
         initMap();
+        this.deleteDatabase("serpentoMaps.db");
     }
 
     private void initMap() {

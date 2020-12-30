@@ -27,7 +27,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private ScoreDBHelper dbHelper;
     private TextView scoreTextView;
     private SortedMap<String, Object> singletonMap;
-    private String[] options = {R.string.menuExit + ""};
+    private String[] options = {R.string.menuExit + "", "Start"};
     private Map selectedMap;
     private Game game;
 
@@ -46,8 +46,7 @@ public class GameBoardActivity extends AppCompatActivity {
         scoreTextView = this.findViewById(R.id.scoreText);
         selectedMap = (Map) singletonMap.get("selectedMap");
 
-        game = new Game(selectedMap, 1000, this.findViewById(R.id.gameBoardImgGreen), scoreTextView);
-        game.loop();
+        game = new Game(selectedMap, 100000, this.findViewById(R.id.gameBoardImgGreen), scoreTextView, this);
     }
 
     protected void onResume() {
@@ -85,13 +84,16 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void menuPushed(View view) {
         // Intent for returning to Main
-        Intent openMainActivity = new Intent(this, MainActivity.class);
-        openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+/*
+            Intent openMainActivity = new Intent(this, MainActivity.class);
+            openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Menu")
-                .setItems(options, (dialog, which) -> startActivityIfNeeded(openMainActivity, 0));
-        builder.show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Menu")
+                    .setItems(options, (dialog, which) -> startActivityIfNeeded(openMainActivity, 0));
+            builder.show();
+*/
+        game.run();
     }
 
     public void upPushed(View view) {
