@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/backBtn"
         android:textSize="40sp"
-        android:text="Settings"
+        android:text="@string/settings"
         android:layout_margin="10sp"
         />
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/backBtn"
         android:layout_margin="40sp"
-        android:text="Left-handed "
+        android:text="@string/lefthanded"
         android:textSize="20sp"
         />
 
@@ -41,7 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="40sp"
-        android:text="APPLY&#10;CHANGES"
+        android:text="@string/apply"
         android:background="@color/green"
         android:onClick="applyChanges"
         />

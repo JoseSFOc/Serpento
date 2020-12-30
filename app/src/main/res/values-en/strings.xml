@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Serpento</string>
+    <string name="play">Play</string>
+
+    <string name="settings">Settings</string>
+    <string name="lefthanded">Left-handed </string>
+    <string name="apply">APPLY\nCHANGES</string>
+
+    <string name="scoresTitle">SCORES</string>
+
+    <string name="selectMap">SELECT A MAP</string>
+
+    <string name="scoreGame">Score: </string>
+    <string name="menuExit">Exit</string>
+</resources>

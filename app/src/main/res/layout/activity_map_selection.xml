@@ -14,7 +14,7 @@
         android:layout_above="@android:id/list"
         android:layout_marginBottom="20sp"
         android:textSize="30sp"
-        android:text="SELECT A MAP"
+        android:text="@string/selectMap"
         />
 
     <ListView

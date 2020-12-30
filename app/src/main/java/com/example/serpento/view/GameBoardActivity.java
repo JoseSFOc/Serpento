@@ -15,6 +15,8 @@ import com.example.serpento.R;
 import com.example.serpento.dataBase.ScoreContract.ScoreEntry;
 import com.example.serpento.dataBase.ScoreDBHelper;
 import com.example.serpento.model.Map;
+import com.example.serpento.model.Snake;
+import com.example.serpento.model.Game;
 import com.example.serpento.model.SingletonMap;
 
 import java.util.SortedMap;
@@ -24,16 +26,17 @@ public class GameBoardActivity extends AppCompatActivity {
 
     private ScoreDBHelper dbHelper;
     private TextView scoreTextView;
-    private SortedMap<String,Object> singletonMap;
-    private String[] options = {"Exit"};
+    private SortedMap<String, Object> singletonMap;
+    private String[] options = {R.string.menuExit + ""};
     private Map selectedMap;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideStatusBar();
         initMap();
-        if((singletonMap.get("LHANDED") == null) || !Boolean.parseBoolean((String)singletonMap.get("LHANDED"))) {
+        if ((singletonMap.get("LHANDED") == null) || !Boolean.parseBoolean((String) singletonMap.get("LHANDED"))) {
             setContentView(R.layout.activity_game_board);
         } else {
             setContentView(R.layout.activity_game_board_left);
@@ -41,10 +44,10 @@ public class GameBoardActivity extends AppCompatActivity {
 
         dbHelper = new ScoreDBHelper(getApplicationContext());
         scoreTextView = this.findViewById(R.id.scoreText);
-        selectedMap = (Map)singletonMap.get("selectedMap");
+        selectedMap = (Map) singletonMap.get("selectedMap");
 
-        //Game game= new Game(CargarMapita, 1000, this.findViewById(R.id.gameBoardImgGreen),scoreTextView);
-        //game.loop();
+        game = new Game(selectedMap, 1000, this.findViewById(R.id.gameBoardImgGreen), scoreTextView);
+        game.loop();
     }
 
     protected void onResume() {
@@ -53,8 +56,8 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     private void initMap() {
-        singletonMap = (SortedMap<String,Object>) SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
-        if(singletonMap == null) {
+        singletonMap = (SortedMap<String, Object>) SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
+        if (singletonMap == null) {
             singletonMap = new TreeMap<>();
             SingletonMap.getInstance().put(MainActivity.SHARED_DATA_KEY, singletonMap);
         }
@@ -87,30 +90,26 @@ public class GameBoardActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Menu")
-               .setItems(options, (dialog, which) ->  startActivityIfNeeded(openMainActivity, 0));
+                .setItems(options, (dialog, which) -> startActivityIfNeeded(openMainActivity, 0));
         builder.show();
     }
 
     public void upPushed(View view) {
-        Toast.makeText(this.getApplicationContext(), "UP", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.ARRIBA);
+        game.cambiarDireccion(Snake.ARRIBA);
 
     }
 
     public void rightPushed(View view) {
-        Toast.makeText(this.getApplicationContext(), "RIGHT", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.DERECHA);
+        game.cambiarDireccion(Snake.DERECHA);
 
     }
 
     public void downPushed(View view) {
-        Toast.makeText(this.getApplicationContext(), "DOWN", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.ABAJO);
+        game.cambiarDireccion(Snake.ABAJO);
     }
 
     public void leftPushed(View view) {
-        Toast.makeText(this.getApplicationContext(), "LEFT", Toast.LENGTH_SHORT).show();
-        //game.cambiarDireccion(Snake.IZQUIERDA);
+        game.cambiarDireccion(Snake.IZQUIERDA);
     }
 
     public TextView getScoreTextView() {
