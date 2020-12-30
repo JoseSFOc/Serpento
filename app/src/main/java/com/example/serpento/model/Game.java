@@ -15,6 +15,7 @@ import android.provider.ContactsContract;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.serpento.model.Snake;
 import com.example.serpento.R;
 import com.example.serpento.view.GameBoardActivity;
 

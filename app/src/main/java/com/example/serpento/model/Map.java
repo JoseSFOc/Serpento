@@ -13,21 +13,21 @@ public class Map implements Serializable {
     String name;
     int filIni;
     int colIni;
-    char dirIni;
+    String dirIni;
 
     public Map() {
         this.name = "";
         this.filIni = 0;
         this.colIni = 0;
-        this.dirIni = 'a';
+        this.dirIni = "ARRIBA";
         this.mapa = new char[20][20];
     }
 
-    public Map(String name, int row, int col, String direction, String mapString) {
+    public Map(String name, int row, int col, String direction,/*int tamfil,int tamcol,*/  String mapString) {
         this.name = name;
         this.filIni = row;
         this.colIni = col;
-        this.dirIni = direction.charAt(0);
+        this.dirIni = direction;
 
         this.mapa = new char[20][20];
         readMap(mapString);
@@ -79,11 +79,11 @@ public class Map implements Serializable {
         this.colIni = colIni;
     }
 
-    public char getDirIni() {
+    public String getDirIni() {
         return dirIni;
     }
 
-    public void setDirIni(char dirIni) {
+    public void setDirIni(String dirIni) {
         this.dirIni = dirIni;
     }
 

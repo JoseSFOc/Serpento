@@ -141,29 +141,27 @@ public class MapSelectionActivity extends AppCompatActivity {
         values.put(MapContract.MapEntry.COLUMN_NAME, "MAP 0 - EMPTY");
         values.put(MapContract.MapEntry.COLUMN_ROW, 15);
         values.put(MapContract.MapEntry.COLUMN_COLUMN, 15);
-        values.put(MapContract.MapEntry.COLUMN_DIRECTION, "s");
-        values.put(MapContract.MapEntry.COLUMN_MAP,
-                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "X                            X\n" +
-                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+        values.put(MapContract.MapEntry.COLUMN_DIRECTION, "ARRIBA");
+        values.put(MapContract.MapEntry.COLUMN_MAP,"XXXXXXXXXXXXXXXXXXXX\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "X                  X\n" +
+                "XXXXXXXXXXXXXXXXXXXX");
 
         // Insert the new row, returning the primary key value of the new row
         db.insert(MapContract.MapEntry.TABLE_NAME, null, values);
