@@ -85,8 +85,8 @@ public class Game extends SurfaceView implements Runnable{
 
         switch (serpiente.getDireccionActual()){ //actualizado el método para que funcione con SNAKE.ARRIBA
             case "ARRIBA" : return (map[filacabeza-1][colcabeza]==c);
-            case "IZQUIERDA" : return (map[filacabeza][colcabeza+1]==c);
-            case "DERECHA" : return (map[filacabeza][colcabeza-1]==c);
+            case "IZQUIERDA" : return (map[filacabeza][colcabeza-1]==c);
+            case "DERECHA" : return (map[filacabeza][colcabeza+1]==c);
             case "ABAJO" : return (map[filacabeza+1][colcabeza]==c);
         }
 
