@@ -16,6 +16,13 @@
         android:id="@+id/gameBoardImgGreen"
         />
 
+    <SurfaceView
+        android:id="@+id/boardSurface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/gameBoardImgWhite"
+        android:scaleType="fitXY" />
+
     <ImageView
         android:layout_width="260sp"
         android:layout_height="match_parent"
