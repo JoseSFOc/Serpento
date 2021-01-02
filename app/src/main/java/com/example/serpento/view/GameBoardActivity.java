@@ -4,14 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.serpento.R;
+import com.example.serpento.controller.GameEngine;
 import com.example.serpento.dataBase.ScoreContract.ScoreEntry;
 import com.example.serpento.dataBase.ScoreDBHelper;
 import com.example.serpento.model.Map;
@@ -19,6 +27,8 @@ import com.example.serpento.model.Snake;
 import com.example.serpento.model.Game;
 import com.example.serpento.model.SingletonMap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -27,14 +37,20 @@ public class GameBoardActivity extends AppCompatActivity {
     private ScoreDBHelper dbHelper;
     private TextView scoreTextView;
     private SortedMap<String, Object> singletonMap;
-    private String[] options = {R.string.menuExit + "", "Start"};
+    private List<String> options;
     private Map selectedMap;
     private Game game;
+
+    private GameEngine gameEngine;
+    private int width, height;
+    private SurfaceView surfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideStatusBar();
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         initMap();
         if ((singletonMap.get("LHANDED") == null) || !Boolean.parseBoolean((String) singletonMap.get("LHANDED"))) {
             setContentView(R.layout.activity_game_board);
@@ -42,17 +58,44 @@ public class GameBoardActivity extends AppCompatActivity {
             setContentView(R.layout.activity_game_board_left);
         }
 
+        options = new ArrayList<>();
+        options.add(getResources().getString(R.string.menuExit));
+
         dbHelper = new ScoreDBHelper(getApplicationContext());
         scoreTextView = this.findViewById(R.id.scoreText);
         selectedMap = (Map) singletonMap.get("selectedMap");
+        surfaceView = findViewById(R.id.boardSurface);
 
-        game = new Game(selectedMap, 100000, this.findViewById(R.id.gameBoardImgGreen), scoreTextView, this);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        //
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        width = Math.round((1 - (260 / dpWidth)) * size.x);
+        height = size.y;
+
+
+
+        //game = new Game(selectedMap, 100000, this.findViewById(R.id.gameBoardImgGreen), scoreTextView, this);
+
+        gameEngine = new GameEngine(this, new Point(width, height), this);
+        //setContentView(gameEngine);
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
-        hideStatusBar();
+        gameEngine.resume();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gameEngine.pause();
+    }
+
 
     private void initMap() {
         singletonMap = (SortedMap<String, Object>) SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
@@ -60,13 +103,6 @@ public class GameBoardActivity extends AppCompatActivity {
             singletonMap = new TreeMap<>();
             SingletonMap.getInstance().put(MainActivity.SHARED_DATA_KEY, singletonMap);
         }
-    }
-
-    private void hideStatusBar() {
-        // Hide the status bar.
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
     }
 
     private void saveHighScore() {
@@ -84,41 +120,51 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void menuPushed(View view) {
         // Intent for returning to Main
-/*
-            Intent openMainActivity = new Intent(this, MainActivity.class);
-            openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        gameEngine.pause();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Menu")
-                    .setItems(options, (dialog, which) -> startActivityIfNeeded(openMainActivity, 0));
-            builder.show();
-*/
-        game.run();
+        Intent openMainActivity = new Intent(this, MainActivity.class);
+        openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Menu")
+                .setItems(options.toArray(new String[options.size()]), (dialog, which) -> startActivityIfNeeded(openMainActivity, 0));
+        builder.setOnDismissListener(arg0 -> gameEngine.resume());
+        builder.show();
     }
 
     public void upPushed(View view) {
-        game.cambiarDireccion(Snake.ARRIBA);
-
+        //game.cambiarDireccion(Snake.ARRIBA);
+        gameEngine.setHeading(GameEngine.Heading.UP);
     }
 
     public void rightPushed(View view) {
-        game.cambiarDireccion(Snake.DERECHA);
-
+        //game.cambiarDireccion(Snake.DERECHA);
+        gameEngine.setHeading(GameEngine.Heading.RIGHT);
     }
 
     public void downPushed(View view) {
-        game.cambiarDireccion(Snake.ABAJO);
+        //game.cambiarDireccion(Snake.ABAJO);
+        gameEngine.setHeading(GameEngine.Heading.DOWN);
     }
 
     public void leftPushed(View view) {
-        game.cambiarDireccion(Snake.IZQUIERDA);
+        //game.cambiarDireccion(Snake.IZQUIERDA);
+        gameEngine.setHeading(GameEngine.Heading.LEFT);
     }
 
     public TextView getScoreTextView() {
         return scoreTextView;
     }
 
-    public void setScoreTextView(TextView scoreTextView) {
-        this.scoreTextView = scoreTextView;
+    public void setScoreText(String score) {
+        this.scoreTextView.setText(score);
+    }
+
+    public SurfaceView getSurfaceView() {
+        return surfaceView;
+    }
+
+    public void setSurfaceView(SurfaceView surfaceView) {
+        this.surfaceView = surfaceView;
     }
 }

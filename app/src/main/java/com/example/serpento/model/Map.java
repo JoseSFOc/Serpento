@@ -23,6 +23,32 @@ public class Map implements Serializable {
         this.mapa = new char[20][20];
     }
 
+    public Map(String name, int row, int col, String direction, int width, int height) {
+        this.name = name;
+        this.filIni = row;
+        this.colIni = col;
+        this.dirIni = direction;
+
+        this.mapa = new char[width][height];
+
+        for(int i = 0; i < height; i++) {
+            if(i == 0 || i == height-1) {
+                for(int j = 0; j < width; j++) {
+                    mapa[i][j] = 'X';
+                }
+            } else {
+                for(int j = 0; j < width; j++) {
+                    if(j == 0 || j == width-1) {
+                        mapa[i][j] = 'X';
+                    } else {
+                        mapa[i][j] = ' ';
+                    }
+                }
+            }
+        }
+
+    }
+
     public Map(String name, int row, int col, String direction,/*int tamfil,int tamcol,*/  String mapString) {
         this.name = name;
         this.filIni = row;

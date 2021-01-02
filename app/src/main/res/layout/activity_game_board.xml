@@ -16,8 +16,15 @@
         android:id="@+id/gameBoardImgGreen"
         />
 
+    <SurfaceView
+        android:id="@+id/boardSurface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/gameBoardImgWhite"
+        android:scaleType="fitXY" />
+
     <ImageView
-        android:layout_width="260sp"
+        android:layout_width="260dp"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:layout_alignParentRight="true"
@@ -27,43 +34,43 @@
 
     <ImageView
         android:id="@+id/downBtn"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="100sp"
-        android:layout_marginBottom="50sp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="50dp"
         android:onClick="downPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
 
     <ImageView
         android:id="@+id/upBtn"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_above="@+id/downBtn"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="100sp"
-        android:layout_marginBottom="60sp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="60dp"
         android:onClick="upPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
 
     <ImageView
         android:id="@+id/rightBtn"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_above="@+id/downBtn"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="40sp"
+        android:layout_marginRight="40dp"
         android:onClick="rightPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
     <ImageView
         android:id="@+id/leftBtn"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_above="@+id/downBtn"
-        android:layout_marginLeft="40sp"
-        android:layout_marginRight="60sp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="60dp"
         android:layout_toLeftOf="@+id/rightBtn"
         android:onClick="leftPushed"
         android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
@@ -71,11 +78,11 @@
 
     <ImageView
         android:id="@+id/menuBtn"
-        android:layout_width="40sp"
-        android:layout_height="40sp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="50sp"
-        android:layout_marginTop="40sp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/scoreText"
         android:onClick="menuPushed"
         android:src="@drawable/menu" />
@@ -85,8 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10sp"
-        android:layout_marginRight="120sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="120dp"
         android:clickable="false"
         android:text="@string/scoreGame"
         android:textColor="@color/black"
@@ -97,8 +104,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10sp"
-        android:layout_marginRight="40sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
         android:text="0"
         android:textColor="#000000"
         android:textSize="30sp" />
