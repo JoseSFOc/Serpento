@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
@@ -14,16 +13,13 @@ import android.view.Display;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.serpento.R;
-import com.example.serpento.controller.GameEngine;
+import com.example.serpento.controller.Juego;
 import com.example.serpento.dataBase.ScoreContract.ScoreEntry;
 import com.example.serpento.dataBase.ScoreDBHelper;
 import com.example.serpento.model.Map;
-import com.example.serpento.model.Snake;
 import com.example.serpento.model.Game;
 import com.example.serpento.model.SingletonMap;
 
@@ -41,7 +37,7 @@ public class GameBoardActivity extends AppCompatActivity {
     private Map selectedMap;
     private Game game;
 
-    private GameEngine gameEngine;
+    private Juego juego;
     private int width, height;
     private SurfaceView surfaceView;
 
@@ -80,20 +76,20 @@ public class GameBoardActivity extends AppCompatActivity {
 
         //game = new Game(selectedMap, 100000, this.findViewById(R.id.gameBoardImgGreen), scoreTextView, this);
 
-        gameEngine = new GameEngine(this, new Point(width, height), this);
+        juego = new Juego(this, new Point(width, height), this);
         //setContentView(gameEngine);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        gameEngine.resume();
+        juego.resume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        gameEngine.pause();
+        juego.pause();
     }
 
 
@@ -120,7 +116,7 @@ public class GameBoardActivity extends AppCompatActivity {
 
     public void menuPushed(View view) {
         // Intent for returning to Main
-        gameEngine.pause();
+        juego.pause();
 
         Intent openMainActivity = new Intent(this, MainActivity.class);
         openMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -128,28 +124,28 @@ public class GameBoardActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Menu")
                 .setItems(options.toArray(new String[options.size()]), (dialog, which) -> startActivityIfNeeded(openMainActivity, 0));
-        builder.setOnDismissListener(arg0 -> gameEngine.resume());
+        builder.setOnDismissListener(arg0 -> juego.resume());
         builder.show();
     }
 
     public void upPushed(View view) {
         //game.cambiarDireccion(Snake.ARRIBA);
-        gameEngine.setHeading(GameEngine.Heading.UP);
+        juego.setDireccion(Juego.direccion.ARRIBA);
     }
 
     public void rightPushed(View view) {
         //game.cambiarDireccion(Snake.DERECHA);
-        gameEngine.setHeading(GameEngine.Heading.RIGHT);
+        juego.setDireccion(Juego.direccion.DERECHA);
     }
 
     public void downPushed(View view) {
         //game.cambiarDireccion(Snake.ABAJO);
-        gameEngine.setHeading(GameEngine.Heading.DOWN);
+        juego.setDireccion(Juego.direccion.ABAJO);
     }
 
     public void leftPushed(View view) {
         //game.cambiarDireccion(Snake.IZQUIERDA);
-        gameEngine.setHeading(GameEngine.Heading.LEFT);
+        juego.setDireccion(Juego.direccion.IZQUIERDA);
     }
 
     public TextView getScoreTextView() {
