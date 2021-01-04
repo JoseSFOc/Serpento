@@ -205,8 +205,8 @@ public class Juego extends SurfaceView implements Runnable {
 
         // Se come a sí misma?
         for (int i = tamSerpiente - 1; i > 0; i--) {
-            //Esto antes era (i > 4)
-            if ((i >= 2) && (trozosSerpienteX[0] == trozosSerpienteX[i]) && (trozosSerpienteY[0] == trozosSerpienteY[i])) {
+            //Esto antes era (i > 4) ||||    (i >= 2) &&
+            if ((trozosSerpienteX[0] == trozosSerpienteX[i]) && (trozosSerpienteY[0] == trozosSerpienteY[i])) {
                 dead = true;
             }
         }
@@ -282,7 +282,14 @@ public class Juego extends SurfaceView implements Runnable {
     }
 
     public void setDireccion(direccion direccion) {
-        this.direccion = direccion;
+        if (this.direccion.ARRIBA == direccion && this.direccion != this.direccion.ABAJO) {
+            this.direccion = direccion;
+        }else if (this.direccion.ABAJO == direccion && this.direccion != this.direccion.ARRIBA) {
+            this.direccion = direccion;
+        }else if (this.direccion.IZQUIERDA == direccion && this.direccion != this.direccion.DERECHA) {
+            this.direccion = direccion;
+        }else if (this.direccion.DERECHA == direccion && this.direccion != this.direccion.IZQUIERDA) {
+            this.direccion = direccion;
+        }
     }
-
 }
