@@ -44,7 +44,7 @@ public class Juego extends SurfaceView implements Runnable {
     private int numBloquesAltura;
 
     // Controla pausando entre estados del sistema
-    private long nextFrameTime;
+    private long tiempoSiguienteFrame;
     // Actualiza el sistema 10 veces por segundo
     private final long FPS = 10;
     private final long MILLIS_POR_SEGUNDO = 1000;
@@ -109,7 +109,7 @@ public class Juego extends SurfaceView implements Runnable {
 
         while (estaJugando) {
 
-            // Update 10 times a second
+            // Actualizamos 10 veces por segundo
             if (updateRequired()) {
                 update();
                 draw();
@@ -134,19 +134,20 @@ public class Juego extends SurfaceView implements Runnable {
     }
 
     public void newGame() {
-        // Start with a single snake segment
+        // Empezamos con una serpiente chiquita de tamaño 2
         tamSerpiente = 2;
         trozosSerpienteX[0] = NUM_BLOQUES_ANCHO / 2;
         trozosSerpienteY[0] = numBloquesAltura / 2;
 
-        // Get Fruit ready for dinner
+        // Ponemos fruta en el mapa
         spawnFruit();
 
-        // Reset the score
+        // Reiniciamos la puntuacion a cero
         puntuacion = 0;
 
         // Setup nextFrameTime so an update is triggered
-        nextFrameTime = System.currentTimeMillis();
+        // Ponemos el tiempoSiguienteFrame en el valor que toca
+        tiempoSiguienteFrame = System.currentTimeMillis();
     }
 
     public void spawnFruit() {
@@ -156,29 +157,23 @@ public class Juego extends SurfaceView implements Runnable {
     }
 
     private void eatFruit() {
-        //  Got him!
-        // Increase the size of the snake
+        // Aumentamos tamaño de la serpiente
         tamSerpiente++;
-        //replace Fruit
-        // This reminds me of Edge of Tomorrow. Oneday Fruit will be ready!
+        // Y ponemos la fruta en otro sitio
         spawnFruit();
-        //add to the score
+        // Añadimos puntos
         puntuacion = puntuacion + 100;
     }
 
     private void moveSnake() {
-        // Move the body
+        // Movemos el cuerpo
         for (int i = tamSerpiente; i > 0; i--) {
-            // Start at the back and move it
-            // to the position of the segment in front of it
+            // Empezamos a mover desde la cola hacia delante
             trozosSerpienteX[i] = trozosSerpienteX[i - 1];
             trozosSerpienteY[i] = trozosSerpienteY[i - 1];
-
-            // Exclude the head because
-            // the head has nothing in front of it
         }
 
-        // Move the head in the appropriate heading
+        // Y ahora la cabeza la movemos para donde apunte la direccion
         switch (direccion) {
             case ARRIBA:
                 trozosSerpienteY[0]--;
@@ -199,18 +194,19 @@ public class Juego extends SurfaceView implements Runnable {
     }
 
     private boolean detectDeath() {
-        // Has the snake died?
+        // Ha muerto la serpiente?
         boolean dead = false;
 
-        // Hit the screen edge
+        // Aqui comprobamos si se ha dado con el borde de la pantalla
         if (trozosSerpienteX[0] == -1) dead = true;
         if (trozosSerpienteX[0] >= NUM_BLOQUES_ANCHO) dead = true;
         if (trozosSerpienteY[0] == -1) dead = true;
         if (trozosSerpienteY[0] == numBloquesAltura) dead = true;
 
-        // Eaten itself?
+        // Se come a sí misma?
         for (int i = tamSerpiente - 1; i > 0; i--) {
-            if ((i > 4) && (trozosSerpienteX[0] == trozosSerpienteX[i]) && (trozosSerpienteY[0] == trozosSerpienteY[i])) {
+            //Esto antes era (i > 4)
+            if ((i >= 2) && (trozosSerpienteX[0] == trozosSerpienteX[i]) && (trozosSerpienteY[0] == trozosSerpienteY[i])) {
                 dead = true;
             }
         }
@@ -219,7 +215,7 @@ public class Juego extends SurfaceView implements Runnable {
     }
 
     public void update() {
-        // Did the head of the snake eat Fruit?
+        // Se ha comido la fruta?
         if (trozosSerpienteX[0] == frutaX && trozosSerpienteY[0] == frutaY) {
             eatFruit();
         }
@@ -227,26 +223,26 @@ public class Juego extends SurfaceView implements Runnable {
         moveSnake();
 
         if (detectDeath()) {
-            //start again
+            // Empezamos de nuevo
             newGame();
         }
     }
 
     public void draw() {
-        // Get a lock on the canvas
+        // Metemos lock al canvas
         if (surfaceHolder.getSurface().isValid()) {
             canvas = surfaceHolder.lockCanvas();
 
-            // Fill the screen with Game Code School blue
+            // Rellenamos la pantalla con el color que sea
             canvas.drawColor(Color.WHITE);
 
-            // Set the color of the paint to draw the snake white
+            // Setteamos el color para la serpiente
             paint.setColor(Color.GREEN);
 
-            // Update score in main thread
+            // Actualizamos puntuación en la hebra/hilo
             gameBoardActivity.runOnUiThread(() -> gameBoardActivity.setScoreText(puntuacion + ""));
 
-            // Draw the snake one block at a time
+            // Pintamos la serpiente trocito a trocito
             for (int i = 0; i < tamSerpiente; i++) {
                 canvas.drawRect(trozosSerpienteX[i] * tamBloque,
                         (trozosSerpienteY[i] * tamBloque),
@@ -255,32 +251,30 @@ public class Juego extends SurfaceView implements Runnable {
                         paint);
             }
 
-            // Set the color of the paint to draw Fruit red
+            // Ahora ponemos el color a Rojo para la fruta
             paint.setColor(Color.RED);
 
-            // Draw Fruit
+            // Dibujamos fruta
             canvas.drawRect(frutaX * tamBloque,
                     (frutaY * tamBloque),
                     (frutaX * tamBloque) + tamBloque,
                     (frutaY * tamBloque) + tamBloque,
                     paint);
 
-            // Unlock the canvas and reveal the graphics for this frame
+            // Quitamos el lock/hacemos unlock al canvas y lo pintamos entero
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
 
     public boolean updateRequired() {
 
-        // Are we due to update the frame
-        if (nextFrameTime <= System.currentTimeMillis()) {
-            // Tenth of a second has passed
+        // Necesitamos actualizar la pantalla?
+        if (tiempoSiguienteFrame <= System.currentTimeMillis()) {
 
-            // Setup when the next update will be triggered
-            nextFrameTime = System.currentTimeMillis() + MILLIS_POR_SEGUNDO / FPS;
+            // Decimos cuándo va a tener que actualizarse de nuevo
+            tiempoSiguienteFrame = System.currentTimeMillis() + MILLIS_POR_SEGUNDO / FPS;
 
-            // Return true so that the update and draw
-            // functions are executed
+            //Si retornamos true, la pantalla se actualiza
             return true;
         }
 
