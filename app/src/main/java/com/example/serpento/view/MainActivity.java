@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String SHARED_DATA_KEY = "SHARED_MAP_KEY";
+    public static final String SHARED_DATA_KEY = "SHARED_MAP_KEY";
     private SortedMap<String, Object> singletonMap;
     private SettingsDBHelper dbHelper;
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void playHandler(View view) {
         readSettings();
-        Intent gbIntent = new Intent(this, MapSelectionActivity.class);
+        Intent gbIntent = new Intent(this, DifficultySelectionActivity.class);
         startActivity(gbIntent);
     }
 

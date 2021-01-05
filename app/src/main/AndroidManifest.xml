@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Serpento">
         <activity
-            android:name=".view.MapSelectionActivity"
+            android:name=".view.DifficultySelectionActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity

@@ -8,22 +8,29 @@ import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.example.serpento.R;
+import com.example.serpento.model.Difficulty;
+import com.example.serpento.model.Score;
+import com.example.serpento.model.SingletonMap;
 import com.example.serpento.view.GameBoardActivity;
+import com.example.serpento.view.MainActivity;
 
 import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Juego extends SurfaceView implements Runnable {
 
     private Thread hilo = null;
 
     // Para mantener una referencia a la actividad
-    private Context context;
+    private GameBoardActivity gameBoardActivity;
 
     // Direcciones
-    public enum direccion {ARRIBA, DERECHA, ABAJO, IZQUIERDA}
+    public enum Direccion {ARRIBA, DERECHA, ABAJO, IZQUIERDA}
 
     // Direccion inicial derecha
-    private direccion direccion = this.direccion.DERECHA;
+    private Direccion direccion;
 
     // Para mantener el tamaño de la pantalla en píxeles
     private int pantallaX;
@@ -45,13 +52,16 @@ public class Juego extends SurfaceView implements Runnable {
 
     // Controla pausando entre estados del sistema
     private long tiempoSiguienteFrame;
-    // Actualiza el sistema 10 veces por segundo
-    private final long FPS = 10;
+
+    // Actualizaciones del sistema por segundo
+    // Facil - 7
+    // Medio - 10
+    // Dificil - 15
+    private int FPS;
     private final long MILLIS_POR_SEGUNDO = 1000;
-// We will draw the frame much more often
 
     // Puntos del jugador
-    private int puntuacion;
+    private Score puntuacion;
 
     // Localización de todos los trozos de la serpiente
     private int[] trozosSerpienteX;
@@ -70,13 +80,23 @@ public class Juego extends SurfaceView implements Runnable {
     // Mas cosas del canvas
     private Paint paint;
 
-    private GameBoardActivity gameBoardActivity;
+    private Random rnd = new Random();
+    private SortedMap<String, Object> singletonMap;
+    private Difficulty dificultad;
 
     public Juego(Context context, Point size, GameBoardActivity gameBoardActivity) {
         super(context);
 
-        this.context = context;
         this.gameBoardActivity = gameBoardActivity;
+
+        this.puntuacion = new Score("", 0);
+
+        initMap();
+        this.dificultad = (Difficulty)singletonMap.get("selectedDifficulty");
+
+        if(dificultad.getName().equals(getResources().getString(R.string.easy))) FPS = 7;
+        else if(dificultad.getName().equals(getResources().getString(R.string.normal))) FPS = 10;
+        else FPS = 15;
 
         this.pantallaX = size.x;
         this.pantallaY = size.y;
@@ -90,18 +110,25 @@ public class Juego extends SurfaceView implements Runnable {
         this.surfaceHolder = gameBoardActivity.getSurfaceView().getHolder();
         this.paint = new Paint();
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+        this.trozosSerpienteX = new int[numBloquesAltura*NUM_BLOQUES_ANCHO];
+        this.trozosSerpienteY = new int[numBloquesAltura*NUM_BLOQUES_ANCHO];
 
-        //ESTO HABRIA QUE CAMBIARLO NO? QUE MIERDA DE QUE SOLO PUEDAS 200 PUNTOS XD
+        int dir = rnd.nextInt() % 4;
+        if(dir == 0) this.direccion = Direccion.ARRIBA;
+        else if(dir == 1) this.direccion = Direccion.DERECHA;
+        else if(dir == 1) this.direccion = Direccion.ABAJO;
+        else this.direccion = Direccion.IZQUIERDA;
 
-        // If you score 200 you are rewarded with a crash achievement!
-
-        this.trozosSerpienteX = new int[200];
-        this.trozosSerpienteY = new int[200];
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Empezamos la partida
+            // Empezamos la partida
         newGame();
+    }
+
+    private void initMap() {
+        singletonMap = (SortedMap<String, Object>) SingletonMap.getInstance().get(MainActivity.SHARED_DATA_KEY);
+        if (singletonMap == null) {
+            singletonMap = new TreeMap<>();
+            SingletonMap.getInstance().put(MainActivity.SHARED_DATA_KEY, singletonMap);
+        }
     }
 
     @Override
@@ -143,9 +170,8 @@ public class Juego extends SurfaceView implements Runnable {
         spawnFruit();
 
         // Reiniciamos la puntuacion a cero
-        puntuacion = 0;
+        puntuacion.setPuntos(0);
 
-        // Setup nextFrameTime so an update is triggered
         // Ponemos el tiempoSiguienteFrame en el valor que toca
         tiempoSiguienteFrame = System.currentTimeMillis();
     }
@@ -157,12 +183,20 @@ public class Juego extends SurfaceView implements Runnable {
     }
 
     private void eatFruit() {
+        int nueva = (int)(puntuacion.getPuntos() + (100*dificultad.getScoreMultiplier()));
+
         // Aumentamos tamaño de la serpiente
         tamSerpiente++;
         // Y ponemos la fruta en otro sitio
         spawnFruit();
         // Añadimos puntos
-        puntuacion = puntuacion + 100;
+        puntuacion.setPuntos(nueva);
+
+        // Si llega a una puntuacion en concreto, se aumenta la dificultad
+        if((nueva % (1000*dificultad.getScoreMultiplier())) == 0) {
+            FPS = (int)Math.ceil((double)FPS*dificultad.getSpeedMultiplier());
+        }
+
     }
 
     private void moveSnake() {
@@ -223,8 +257,8 @@ public class Juego extends SurfaceView implements Runnable {
         moveSnake();
 
         if (detectDeath()) {
-            // Empezamos de nuevo
-            newGame();
+            // Dialog para la puntuacion
+            gameBoardActivity.runOnUiThread(() -> gameBoardActivity.deathDialog(puntuacion));
         }
     }
 
@@ -240,7 +274,7 @@ public class Juego extends SurfaceView implements Runnable {
             paint.setColor(Color.GREEN);
 
             // Actualizamos puntuación en la hebra/hilo
-            gameBoardActivity.runOnUiThread(() -> gameBoardActivity.setScoreText(puntuacion + ""));
+            gameBoardActivity.runOnUiThread(() -> gameBoardActivity.setScoreText(puntuacion.getPuntos() + ""));
 
             // Pintamos la serpiente trocito a trocito
             for (int i = 0; i < tamSerpiente; i++) {
@@ -281,7 +315,7 @@ public class Juego extends SurfaceView implements Runnable {
         return false;
     }
 
-    public void setDireccion(direccion direccion) {
+    public void setDireccion(Direccion direccion) {
         if (this.direccion.ARRIBA == direccion && this.direccion != this.direccion.ABAJO) {
             this.direccion = direccion;
         }else if (this.direccion.ABAJO == direccion && this.direccion != this.direccion.ARRIBA) {

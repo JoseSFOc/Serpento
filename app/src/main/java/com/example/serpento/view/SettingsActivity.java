@@ -6,23 +6,15 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.serpento.R;
-import com.example.serpento.dataBase.MapContract;
 import com.example.serpento.dataBase.SettingsContract;
 import com.example.serpento.dataBase.SettingsDBHelper;
 import com.example.serpento.model.SingletonMap;
 
-import java.util.List;
-import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -90,7 +82,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         db.replace(SettingsContract.SettingsEntry.TABLE_NAME, null, values);
         singletonMap.put("LHANDED", leftSwitch.isChecked());
-        finish();
+
+
+        Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.saved), Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 
     public void backHandler(View view) {

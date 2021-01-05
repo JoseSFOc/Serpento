@@ -6,11 +6,19 @@
     <string name="settings">Settings</string>
     <string name="lefthanded">Left-handed </string>
     <string name="apply">APPLY\nCHANGES</string>
+    <string name="saved">Saved!</string>
 
     <string name="scoresTitle">SCORES</string>
 
-    <string name="selectMap">SELECT A MAP</string>
+    <string name="selectMap">SELECT DIFFICULTY</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
 
     <string name="scoreGame">Score: </string>
     <string name="menuExit">Exit</string>
+    <string name="deathText">YOU DIED</string>
+    <string name="save">Save</string>
+    <string name="cancel">Don\'t Save</string>
+    <string name="msgSave">Enter a name for your score: </string>
 </resources>

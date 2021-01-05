@@ -5,11 +5,19 @@
     <string name="settings">Opciones</string>
     <string name="lefthanded">Zurdo </string>
     <string name="apply">GUARDAR\nCAMBIOS</string>
+    <string name="saved">Guardado\ncon éxito!</string>
 
     <string name="scoresTitle">PUNTUACIONES</string>
 
-    <string name="selectMap">SELECCIONA UN MAPA</string>
+    <string name="selectMap">SELECCIONA UNA DIFICULTAD</string>
+    <string name="easy">Fácil</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Difícil</string>
 
     <string name="scoreGame">Puntos: </string>
     <string name="menuExit">Salir</string>
+    <string name="deathText">HAS MUERTO</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">No Guardar</string>
+    <string name="msgSave">Introduce un nombre para tu puntuación: </string>
 </resources>

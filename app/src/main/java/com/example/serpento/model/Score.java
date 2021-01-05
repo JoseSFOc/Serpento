@@ -1,8 +1,8 @@
 package com.example.serpento.model;
 
 public class Score {
-    String nick;
-    int puntos;
+    private String nick;
+    private int puntos;
 
     public Score(String nick, int puntos) {
         this.nick = nick;
