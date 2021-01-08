@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -45,19 +46,12 @@ public class ScoreActivity extends AppCompatActivity {
     private void readScoreDatabase() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
         String[] projection = {
                 BaseColumns._ID,
                 ScoreEntry.COLUMN_PLAYER,
                 ScoreEntry.COLUMN_SCORE
         };
 
-        // Filter results WHERE "title" = 'My Title'
-        //String selection = ScoreEntry.COLUMN_PLAYER + " = ?";
-        //String[] selectionArgs = {"My Player"};
-
-        // How you want the results sorted in the resulting Cursor
         String sortOrder = ScoreEntry.COLUMN_SCORE + " DESC";
 
         Cursor cursor = db.query(
@@ -84,10 +78,8 @@ public class ScoreActivity extends AppCompatActivity {
     }
 
     private void hideStatusBar() {
-        // Hide the status bar.
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        // Fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     private void populateList() {

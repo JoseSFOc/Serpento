@@ -127,7 +127,7 @@ public class DifficultySelectionActivity extends AppCompatActivity {
     private void loadMaps() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // Create a new map of values, where column names are the keys
+        // Mapa de valores nuevo
         ContentValues easy = new ContentValues();
         easy.put(DifficultyContract.DifficultyEntry.COLUMN_NAME, getResources().getString(R.string.easy));
         easy.put(DifficultyContract.DifficultyEntry.COLUMN_SCORE, 1);
@@ -143,7 +143,7 @@ public class DifficultySelectionActivity extends AppCompatActivity {
         hard.put(DifficultyContract.DifficultyEntry.COLUMN_SCORE, 2);
         hard.put(DifficultyContract.DifficultyEntry.COLUMN_SPEED, 1.5);
 
-        // Insert the new row, returning the primary key value of the new row
+        // Insertamos las lineas
         db.insert(DifficultyContract.DifficultyEntry.TABLE_NAME, null, easy);
         db.insert(DifficultyContract.DifficultyEntry.TABLE_NAME, null, normal);
         db.insert(DifficultyContract.DifficultyEntry.TABLE_NAME, null, hard);

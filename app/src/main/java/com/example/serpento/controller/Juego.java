@@ -119,7 +119,7 @@ public class Juego extends SurfaceView implements Runnable {
         else if(dir == 1) this.direccion = Direccion.ABAJO;
         else this.direccion = Direccion.IZQUIERDA;
 
-            // Empezamos la partida
+        // Empezamos la partida
         newGame();
     }
 

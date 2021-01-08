@@ -103,15 +103,15 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     private void saveHighScore() {
-        // Gets the data repository in write mode
+        // Base de datos en modo escritura
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // Create a new map of values, where column names are the keys
+        // Nuevo mapas de valores
         ContentValues values = new ContentValues();
         values.put(ScoreEntry.COLUMN_PLAYER, score.getNick());
         values.put(ScoreEntry.COLUMN_SCORE, score.getPuntos());
 
-        // Insert the new row, returning the primary key value of the new row
+        // Metemos la nueva fila, obtenemos el ID por si queremos usarlo
         long newRowId = db.insert(ScoreEntry.TABLE_NAME, null, values);
     }
 
@@ -153,7 +153,7 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void menuPushed(View view) {
-        // Intent for returning to Main
+        // Intent para volver a main
         juego.pause();
 
         Intent openMainActivity = new Intent(this, MainActivity.class);
@@ -167,22 +167,18 @@ public class GameBoardActivity extends AppCompatActivity {
     }
 
     public void upPushed(View view) {
-        //game.cambiarDireccion(Snake.ARRIBA);
         juego.setDireccion(Juego.Direccion.ARRIBA);
     }
 
     public void rightPushed(View view) {
-        //game.cambiarDireccion(Snake.DERECHA);
         juego.setDireccion(Juego.Direccion.DERECHA);
     }
 
     public void downPushed(View view) {
-        //game.cambiarDireccion(Snake.ABAJO);
         juego.setDireccion(Juego.Direccion.ABAJO);
     }
 
     public void leftPushed(View view) {
-        //game.cambiarDireccion(Snake.IZQUIERDA);
         juego.setDireccion(Juego.Direccion.IZQUIERDA);
     }
 
